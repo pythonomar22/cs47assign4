@@ -1,76 +1,56 @@
-import { FlatList, Text, StyleSheet, View, Image} from "react-native"
+import { FlatList, Text, StyleSheet, View, Image, SafeAreaView, ScrollView} from "react-native"
 import Song from "./Song";
-import { Themes } from "../assets/Themes";
 import { millisToMinutesAndSeconds } from "../utils";
 
-const renderSongBox = ({ item, index }) => (
+const renderSong = ({ item, index }) => (
     <Song
-      id={index}
-      name={item.songTitle}
-      //color={item.color}
-      imageUrl={item.imageUrl}
+      num={index +1} // 
+      title={item.songTitle}
+      artist={item.songArtists[0].name} // see console
       album = {item.albumName}
       duration = {millisToMinutesAndSeconds(item.duration)}  
-      artist={item.songArtists[0].name}
-    
+      imageUrl={item.imageUrl}
     />
   );
 
 const SongList = ({tracks}) => {
     return (
-        
-    <View>   
-        <View style={styles.titleRow}>
-        <Image style={{width: 30, height: 30, marginRight: 12}} source={require('../assets/spotify-logo.png')}/>
-            <Text style={styles.titleText}>My Top Tracks</Text>
+    <ScrollView>   
+        <View style={styles.titleTop}>
+        <Image style={styles.spotifypic} source={require('../assets/spotify-logo.png')}/>
+            <Text style={styles.title}>My Top Tracks</Text>
         </View>
         <FlatList 
             data = {tracks}
-            renderItem={(item) => renderSongBox(item)}
-            
-            //    console.log(item);
-            //    return <Text style = {{color: "white"}}>{item.songTitle}</Text>;
-            //}}
-            
-            keyExtractor={(item) => item.id}
-
+            renderItem={(item) => renderSong(item)}
+            keyExtractor={(item) => item.num}
         />
-    </View> 
+    </ScrollView> 
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      backgroundColor: Themes.colors.background,
-      justifyContent: "center",
-      alignItems: "center",
-      flex: 1,
+    spotifypic: {
+      width: 30,
+      height: 30,
+      marginRight: 5
     },
-    
-    authText: {
-      color: "white"
-    },
-    titleRow: {
+    titleTop: {
       flexDirection: 'row',
-      padding: 20,
-      //backgroundColor: 'lightblue',
       justifyContent: 'center',
-      borderRadius: 10,
       marginBottom: 8,
     },
-    titleText: {
-      fontSize: 20,
-      fontWeight: 'bold',
+    title: {
+      fontSize: 25,
       textAlign: 'center',
       color: "white",
+      marginBottom: -50
     },
-  
     image: {
         margin: 10,
         width: 100,
         height: 100
     },
-  
   });
 
 export default SongList

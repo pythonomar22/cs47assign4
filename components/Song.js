@@ -1,36 +1,36 @@
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
-import colors from "../assets/Themes/colors"
+import { StyleSheet, Text, View, Image } from 'react-native';
 
-const Song = ({ id, name, artist, album, duration, quantity, imageUrl }) => {
+const Song = ({ num, title, artist, album, duration, imageUrl }) => {
   return (
     <View style={styles.item}>
-      <Text style={styles.index}>{id}</Text>
+
+      <Text style={styles.num}>
+        {num}
+      </Text>
+
       <Image style={styles.image} source={{ uri: imageUrl }} />
-      <View style={styles.textSection} numberOfLines={1}>
-        <Text style={styles.whitecolor} numberOfLines={1}>
-          {name}
+
+      <View style={styles.text}>
+        <Text style={{color: "white"}}>
+          {title}
         </Text>
-        <Text style={styles.artistcolor}>{artist}</Text>
+        <Text style={{color: "white", marginTop: 5}}>{artist}</Text>
       </View>
+
       <View style={styles.album}>
-        <Text style={styles.whitecolor}>{album}</Text>
+        <Text style={{color: "white"}}>{album}</Text>
       </View>
+
       <View style={styles.duration}>
-        <Text style={styles.whitecolor}>{duration}</Text>
+        <Text style={{color: "white"}}>{duration}</Text>
       </View>
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  artistcolor: {
-    // color: colors.whitecolor, this never works for me
-    color: '#FFFFFF'
-  },
-  whitecolor: {
-    color: 'white', // colors.whitecolor never works
-  },
-  index: {
+  num: {
     color: 'white',
     marginLeft: -5
   },
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5
   },
   duration: {
-    padding: 30
+    padding: 20
   },
   item: {
     backgroundColor: '#121212',
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  textSection: {
+  text: {
     padding: 0,
     marginVertical: 8,
     height: '40%',
