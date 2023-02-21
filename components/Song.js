@@ -1,64 +1,62 @@
-import { View, Text, Image, StyleSheet } from "react-native";
-import { millisToMinuteSeconds } from "../utils/millisToMinuteSeconds";
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import colors from "../assets/Themes/colors"
 
-const Song = ({ songTitle, artist, album, albumImageUrl, duration }) => {
+const Song = ({ id, name, artist, album, duration, quantity, imageUrl }) => {
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: albumImageUrl }} style={styles.image} />
-      <View style={styles.detailsContainer}>
-        <Text style={styles.title} numberOfLines={1}>
-          {songTitle}
+    <View style={styles.item}>
+      <Text style={styles.index}>{id}</Text>
+      <Image style={styles.image} source={{ uri: imageUrl }} />
+      <View style={styles.textSection} numberOfLines={1}>
+        <Text style={styles.whitecolor} numberOfLines={1}>
+          {name}
         </Text>
-        <Text style={styles.artist} numberOfLines={1}>
-          {artist}
-        </Text>
-        <Text style={styles.album} numberOfLines={1}>
-          {album}
-        </Text>
+        <Text style={styles.artistcolor}>{artist}</Text>
       </View>
-      <View style={styles.durationContainer}>
-        <Text style={styles.duration}>
-          {millisToMinuteSeconds(duration)}
-        </Text>
+      <View style={styles.album}>
+        <Text style={styles.whitecolor}>{album}</Text>
+      </View>
+      <View style={styles.duration}>
+        <Text style={styles.whitecolor}>{duration}</Text>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderBottomColor: "lightgray",
-    borderBottomWidth: StyleSheet.hairlineWidth,
+  artistcolor: {
+    // color: colors.whitecolor, this never works for me
+    color: '#FFFFFF'
   },
-  image: {
-    width: 64,
-    height: 64,
-    marginRight: 16,
+  whitecolor: {
+    color: 'white', // colors.whitecolor never works
   },
-  detailsContainer: {
-    flex: 1,
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  artist: {
-    color: "gray",
+  index: {
+    color: 'white',
+    marginLeft: -5
   },
   album: {
-    color: "gray",
-  },
-  durationContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 50,
+    marginHorizontal: 5
   },
   duration: {
-    fontWeight: "bold",
+    padding: 30
+  },
+  item: {
+    backgroundColor: '#121212',
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  textSection: {
+    padding: 0,
+    marginVertical: 8,
+    height: '40%',
+    width: '40%',
+  },
+  image: {
+    width: 75,
+    height: 75,
+    marginHorizontal: 10,
   },
 });
 
