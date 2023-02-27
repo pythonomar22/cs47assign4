@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
-const Song = ({ num, title, artist, album, duration, imageUrl }) => {
+const Song = ({ num, title, artist, album, duration, imageUrl, navigation, previewUrl, externalUrl}) => {
   return (
     <View style={styles.item}>
 
@@ -8,13 +9,19 @@ const Song = ({ num, title, artist, album, duration, imageUrl }) => {
         {num}
       </Text>
 
+      <Pressable onPress = {() => {navigation.navigate('PreviewScreen', {previewUrl: previewUrl})}} style={styles.play}>
+        <AntDesign name='play' size={20} color='#000000' />
+      </Pressable>
+
       <Image style={styles.image} source={{ uri: imageUrl }} />
 
       <View style={styles.text}>
-        <Text style={{color: "white"}}>
-          {title}
-        </Text>
-        <Text style={{color: "white", marginTop: 5}}>{artist}</Text>
+        <Pressable onPress={() => {navigation.navigate('DetailsScreen', {externalUrl: externalUrl})}} >
+          <Text style={{color: "white"}}>
+            {title}
+          </Text>
+          <Text style={{color: "white", marginTop: 5}}>{artist}</Text>
+        </Pressable>
       </View>
 
       <View style={styles.album}>

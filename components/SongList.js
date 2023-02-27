@@ -2,18 +2,21 @@ import { FlatList, Text, StyleSheet, View, Image, SafeAreaView, ScrollView} from
 import Song from "./Song";
 import { millisToMinutesAndSeconds } from "../utils";
 
-const renderSong = ({ item, index }) => (
-    <Song
-      num={index +1} // 
-      title={item.songTitle}
-      artist={item.songArtists[0].name} // see console
-      album = {item.albumName}
-      duration = {millisToMinutesAndSeconds(item.duration)}  
-      imageUrl={item.imageUrl}
-    />
-  );
+const SongList = ({tracks, navigation}) => {
+  const renderSong = ({ item, index }) => (
+      <Song
+        num={index +1} // 
+        title={item.songTitle}
+        artist={item.songArtists[0].name} // see console
+        album = {item.albumName}
+        duration = {millisToMinutesAndSeconds(item.duration)}  
+        imageUrl={item.imageUrl}
+        navigation={navigation}
+        previewUrl={item.previewUrl}
+        externalUrl={item.externalUrl}
+      />
+    );
 
-const SongList = ({tracks}) => {
     return (
     <ScrollView>   
         <View style={styles.titleTop}>
@@ -22,7 +25,8 @@ const SongList = ({tracks}) => {
         </View>
         <FlatList 
             data = {tracks}
-            renderItem={(item) => renderSong(item)}
+            renderItem={(item) => renderSong(item, navigation)}
+            navigation={navigation}
             keyExtractor={(item) => item.num}
         />
     </ScrollView> 

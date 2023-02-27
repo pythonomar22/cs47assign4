@@ -1,11 +1,10 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import WebView from 'react-native-webview';
 
-const PreviewScreen = () => {
+const PreviewScreen = ( {navigation, route}) => {
     return (
-        <View>
-            <Text>PreviewScreen</Text>
-        </View>
+      <WebView source={{uri: route.params.previewUrl}} style={{marginTop: 20}} />
     )
 }
 

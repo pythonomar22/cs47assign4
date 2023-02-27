@@ -1,28 +1,26 @@
-
+import { StyleSheet, SafeAreaView, Text, Pressable, View } from "react-native";
 import { useSpotifyAuth } from "../utils";
-import SongList from "../components/SongList";
+import { Themes } from "../assets/Themes";
 import SpotifyAuthButton from "../components/SpotifyAuthButton";
-import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
-import Colors from "./Themes/colors";
+import SongList from "../components/SongList";
 
-
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
     // Pass in true to useSpotifyAuth to use the album ID (in env.js) instead of top tracks
     const { token, tracks, getSpotifyAuth } = useSpotifyAuth(true);
   
-    console.log("tracks", tracks);
     console.log("token", token);
-  
+    console.log("tracks", tracks);
+    
     let contentDisplayed = null;
   
     if (token) {
-      contentDisplayed = <SongList tracks = {tracks} />;
+      contentDisplayed = <SongList tracks = {tracks} navigation={navigation} />;
     } else {
       contentDisplayed = (
-        <SpotifyAuthButton authenticationFunction={getSpotifyAuth} />
+        <SpotifyAuthButton authenticationFunction={getSpotifyAuth}/>
       );
     }
-  
+
     return (
       <SafeAreaView style={styles.container}>
         {contentDisplayed}
